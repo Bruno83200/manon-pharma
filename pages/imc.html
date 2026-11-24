@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur IMC — Les Conseils de Manon</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Mascotte flottante conservée & adoucie + bouton on/off */
+        #floating-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+            width: clamp(110px, 18vw, 240px);
+            height: auto;
+            opacity: 0.88;
+            filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.45));
+            transition: opacity 0.35s ease;
+            will-change: transform;
+        }
+
+        #floating-image.hidden-mascot {
+            opacity: 0;
+        }
+
+        .imc-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .imc-card {
+            background: var(--glass-bg-strong);
+            backdrop-filter: blur(20px) saturate(140%);
+            -webkit-backdrop-filter: blur(20px) saturate(140%);
+            border: 1.5px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: clamp(24px, 4vw, 44px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .imc-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .imc-card-top h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(1.6rem, 3vw, 2.1rem);
+            color: var(--forest-800);
+        }
+
+        .mascot-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(63, 110, 79, 0.28);
+            background: var(--sage-100);
+            color: var(--forest-800);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mascot-toggle-btn:hover {
+            background: var(--sage-200);
+        }
+
+        .imc-inputs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field-group label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--forest-800);
+        }
+
+        .input-unit-wrap {
+            position: relative;
+        }
+
+        .input-unit-wrap input {
+            width: 100%;
+            padding: 15px 52px 15px 18px;
+            border: 1.5px solid rgba(24, 34, 27, 0.16);
+            border-radius: 16px;
+            background: var(--white);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--ink-900);
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .input-unit-wrap input:focus {
+            border-color: var(--main-green);
+            box-shadow: 0 0 0 4px rgba(63, 110, 79, 0.15);
+        }
+
+        .input-unit {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--ink-500);
+            pointer-events: none;
+        }
+
+        .btn-calculate {
+            width: 100%;
+            padding: 17px 24px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--main-green), var(--forest-800));
+            color: var(--white);
+            font-size: 0.96rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 10px 26px rgba(31, 59, 43, 0.3);
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .btn-calculate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 32px rgba(31, 59, 43, 0.42);
+        }
+
+        /* Résultat avec jauge visuelle */
+        .imc-result-panel {
+            margin-top: 26px;
+            padding: 24px;
+            border-radius: 22px;
+            background: var(--white);
+            border: 1.5px solid rgba(63, 110, 79, 0.18);
+            text-align: center;
+            display: none;
+            animation: cardReveal 0.45s var(--transition-smooth) forwards;
+        }
+
+        .imc-score-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin: 8px 0 12px;
+            flex-wrap: wrap;
+        }
+
+        .imc-score-number {
+            font-family: var(--font-serif);
+            font-size: clamp(2.8rem, 5vw, 3.6rem);
+            font-weight: 700;
+            line-height: 1;
+            color: var(--forest-900);
+        }
+
+        .imc-category-pill {
+            padding: 7px 16px;
+            border-radius: 999px;
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .cat-under { background: #dff0ff; color: #0b5cab; }
+        .cat-normal { background: #dcf4e4; color: #1f5f37; }
+        .cat-over { background: #fff1d6; color: #945800; }
+        .cat-obese { background: #ffe1de; color: #a31d14; }
+
+        /* Jauge graduée */
+        .imc-gauge {
+            position: relative;
+            height: 12px;
+            border-radius: 999px;
+            margin: 18px 0 10px;
+            background: linear-gradient(90deg,
+                #63b3ed 0%, #63b3ed 22%,
+                #48bb78 22%, #48bb78 54%,
+                #ecc94b 54%, #ecc94b 76%,
+                #f56565 76%, #f56565 100%);
+        }
+
+        .imc-gauge-marker {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--forest-900);
+            border: 3px solid var(--white);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+            transition: left 0.55s var(--transition-smooth);
+        }
+
+        .imc-advice-text {
+            margin-top: 12px;
+            font-size: 0.96rem;
+            color: var(--ink-700);
+            line-height: 1.6;
+        }
+
+        .imc-ideal-range {
+            margin-top: 8px;
+            font-size: 0.84rem;
+            color: var(--ink-500);
+            font-weight: 500;
+        }
+
+        /* Grille de référence OMS */
+        .imc-scale-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 26px;
+        }
+
+        .scale-box {
+            background: rgba(255, 255, 255, 0.72);
+            border-radius: 14px;
+            padding: 12px 10px;
+            text-align: center;
+            border-top: 4px solid transparent;
+        }
+
+        .scale-box strong {
+            display: block;
+            font-size: 0.86rem;
+            color: var(--ink-900);
+            margin-bottom: 2px;
+        }
+
+        .scale-box span {
+            font-size: 0.76rem;
+            color: var(--ink-500);
+            font-weight: 600;
+        }
+
+        .scale-1 { border-top-color: #63b3ed; }
+        .scale-2 { border-top-color: #48bb78; }
+        .scale-3 { border-top-color: #ecc94b; }
+        .scale-4 { border-top-color: #f56565; }
+
+        @media (max-width: 640px) {
+            .imc-inputs-grid {
+                grid-template-columns: 1fr;
+            }
+            .imc-scale-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- IMAGE DE FOND CONSERVÉE (imc.webp) -->
+    <div class="page-bg" style="background-image: url('../assets/images/imc.webp');"></div>
+    <div class="page-bg-overlay"></div>
+
+    <!-- MASCOTTE FLOTTANTE CONSERVÉE (bleu.png) -->
+    <img src="../assets/images/bleu.png" id="floating-image" alt="Mascotte bien-être">
+
+    <div id="site-nav"></div>
+
+    <header class="page-hero">
+        <span class="hero-eyebrow">⚖️ Outil Santé &amp; Équilibre</span>
+        <h1>Calculateur d'IMC</h1>
+        <p class="page-hero-sub">Évaluez votre Indice de Masse Corporelle en quelques secondes selon les repères de l'OMS</p>
+    </header>
+
+    <main class="container">
+        <div class="imc-wrapper">
+            <div class="imc-card">
+                <div class="imc-card-top">
+                    <h2>Vos paramètres</h2>
+                    <button type="button" class="mascot-toggle-btn" id="toggleMascotBtn">
+                        ✨ Mascotte : Activée
+                    </button>
+                </div>
+
+                <form id="imcForm">
+                    <div class="imc-inputs-grid">
+                        <div class="field-group">
+                            <label for="weight">Votre poids</label>
+                            <div class="input-unit-wrap">
+                                <input type="number" id="weight" step="0.1" min="20" max="300" placeholder="Ex : 68" required>
+                                <span class="input-unit">kg</span>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="height">Votre taille</label>
+                            <div class="input-unit-wrap">
+                                <input type="number" id="height" step="1" min="100" max="250" placeholder="Ex : 170" required>
+                                <span class="input-unit">cm</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-calculate">Calculer mon IMC</button>
+                </form>
+
+                <div id="resultPanel" class="imc-result-panel" aria-live="polite">
+                    <span style="font-size:0.78rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--ink-500); font-weight:700;">Votre résultat</span>
+                    <div class="imc-score-row">
+                        <div class="imc-score-number" id="imcValue">--</div>
+                        <span class="imc-category-pill" id="imcCategory"></span>
+                    </div>
+
+                    <div class="imc-gauge" aria-hidden="true">
+                        <div class="imc-gauge-marker" id="imcMarker"></div>
+                    </div>
+
+                    <p class="imc-advice-text" id="imcAdvice"></p>
+                    <p class="imc-ideal-range" id="imcIdealRange"></p>
+                </div>
+
+                <div class="imc-scale-grid">
+                    <div class="scale-box scale-1">
+                        <strong>&lt; 18,5</strong>
+                        <span>Insuffisance</span>
+                    </div>
+                    <div class="scale-box scale-2">
+                        <strong>18,5 – 24,9</strong>
+                        <span>Poids normal</span>
+                    </div>
+                    <div class="scale-box scale-3">
+                        <strong>25 – 29,9</strong>
+                        <span>Surpoids</span>
+                    </div>
+                    <div class="scale-box scale-4">
+                        <strong>≥ 30</strong>
+                        <span>Obésité</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../script/main.js"></script>
+    <script>
+        const form = document.getElementById('imcForm');
+        const resultPanel = document.getElementById('resultPanel');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const weight = parseFloat(document.getElementById('weight').value);
+            const heightCm = parseFloat(document.getElementById('height').value);
+            const heightM = heightCm / 100;
+
+            if (weight > 0 && heightM > 0) {
+                const imc = weight / (heightM * heightM);
+                renderImc(imc, heightM);
+            }
+        });
+
+        function renderImc(imc, heightM) {
+            const rounded = (Math.round(imc * 10) / 10).toFixed(1).replace('.', ',');
+            const valEl = document.getElementById('imcValue');
+            const catEl = document.getElementById('imcCategory');
+            const advEl = document.getElementById('imcAdvice');
+            const rangeEl = document.getElementById('imcIdealRange');
+            const markerEl = document.getElementById('imcMarker');
+
+            valEl.textContent = rounded;
+            catEl.className = 'imc-category-pill';
+
+            // Position sur la jauge entre IMC 14 et IMC 36
+            const pct = Math.max(4, Math.min(96, ((imc - 14) / (36 - 14)) * 100));
+            markerEl.style.left = pct + '%';
+
+            const minNormal = Math.round(18.5 * heightM * heightM);
+            const maxNormal = Math.round(24.9 * heightM * heightM);
+            rangeEl.textContent = `Pour votre taille, la zone d'équilibre se situe généralement entre ${minNormal} kg et ${maxNormal} kg.`;
+
+            if (imc < 18.5) {
+                catEl.textContent = 'Insuffisance pondérale';
+                catEl.classList.add('cat-under');
+                advEl.textContent = 'Un apport nutritionnel plus riche et équilibré peut être bénéfique. N’hésitez pas à demander un avis personnalisé.';
+            } else if (imc < 25) {
+                catEl.textContent = 'Corpulence normale';
+                catEl.classList.add('cat-normal');
+                advEl.textContent = 'Bravo, vous présentez un équilibre corporel optimal ! Continuez à cultiver une alimentation variée et une activité régulière.';
+            } else if (imc < 30) {
+                catEl.textContent = 'Surpoids';
+                catEl.classList.add('cat-over');
+                advEl.textContent = 'Une hygiène alimentaire douce associée à une activité physique régulière et un soutien en plantes drainantes peut vous accompagner.';
+            } else {
+                catEl.textContent = 'Obésité';
+                catEl.classList.add('cat-obese');
+                advEl.textContent = 'Nous vous recommandons de consulter un professionnel de santé pour un accompagnement global, bienveillant et adapté.';
+            }
+
+            resultPanel.style.display = 'block';
+        }
+
+        // Animation fluide de la mascotte + bouton pour l'activer/masquer
+        (function () {
+            const img = document.getElementById('floating-image');
+            const toggleBtn = document.getElementById('toggleMascotBtn');
+            let active = true;
+            let speedX = 0.85;
+            let speedY = 0.65;
+            let posX = 30;
+            let posY = 90;
+
+            function initPosition() {
+                const maxW = Math.max(40, window.innerWidth - img.offsetWidth - 20);
+                const maxH = Math.max(80, window.innerHeight - img.offsetHeight - 20);
+                posX = Math.random() * maxW;
+                posY = Math.random() * maxH;
+            }
+
+            function moveImage() {
+                if (active) {
+                    const winW = window.innerWidth;
+                    const winH = window.innerHeight;
+                    posX += speedX;
+                    posY += speedY;
+                    if (posX + img.offsetWidth >= winW || posX <= 0) speedX *= -1;
+                    if (posY + img.offsetHeight >= winH || posY <= 0) speedY *= -1;
+                    posX = Math.max(0, Math.min(posX, Math.max(0, winW - img.offsetWidth)));
+                    posY = Math.max(0, Math.min(posY, Math.max(0, winH - img.offsetHeight)));
+                    img.style.transform = `translate3d(${posX}px, ${posY}px, 0)`;
+                }
+                requestAnimationFrame(moveImage);
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                active = !active;
+                img.classList.toggle('hidden-mascot', !active);
+                toggleBtn.textContent = active ? '✨ Mascotte : Activée' : '🌙 Mascotte : Masquée';
+            });
+
+            window.addEventListener('load', () => {
+                initPosition();
+                requestAnimationFrame(moveImage);
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coups de Cœur & Mycothérapie — Les Conseils de Manon</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- IMAGE DE FOND CONSERVÉE (ccoeur.webp) -->
+    <div class="page-bg" style="background-image: url('../assets/images/ccoeur.webp');"></div>
+    <div class="page-bg-overlay"></div>
+
+    <div id="site-nav"></div>
+
+    <header class="page-hero">
+        <span class="hero-eyebrow">💚 Sélection Officinale</span>
+        <h1>Les Coups de Cœur de Manon</h1>
+        <p class="page-hero-sub">Mes alliés naturels éprouvés au quotidien &amp; focus sur les champignons médicinaux</p>
+
+        <div class="subcat-tabs" role="navigation" aria-label="Accès rapide sur la page">
+            <a href="#section-coeur" class="subcat-tab active">💚 Produits Coups de Cœur</a>
+            <a href="#section-myco" class="subcat-tab">🍄 La Mycothérapie</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="section-coeur" class="intro-card">
+            <p>
+                Préparatrice en pharmacie passionnée par la médecine naturelle, j’ai à cœur de vous partager mes recommandations les plus précieuses. Cette page regroupe mes produits coup de cœur, ceux que je conseille régulièrement à mes clients et que j’utilise moi-même pour leur efficacité et leur qualité. Chaque produit présenté ici a été soigneusement sélectionné pour ses bienfaits, sa composition naturelle et son respect de votre santé.
+            </p>
+            <p>
+                Explorez cette sélection et découvrez des alliés pour votre bien-être, accompagnés de mes conseils pratiques pour une utilisation optimale. Prenez soin de vous, naturellement.
+            </p>
+        </div>
+
+        <div id="catalog-toolbar"></div>
+
+        <!-- PRODUITS COEUR.JS -->
+        <div id="product-list"></div>
+
+        <!-- SECTION MYCOTHÉRAPIE -->
+        <div id="section-myco" class="intro-card section-divider-card">
+            <span class="section-heading-badge">🍄 Focus Santé Naturelle</span>
+            <h2 class="section-title-serif">La mycothérapie : les champignons au service du bien-être</h2>
+
+            <p>
+                Si la phytothérapie, qui utilise les plantes à des fins de santé, est bien connue, la mycothérapie s'intéresse quant à elle aux bienfaits des champignons médicinaux. Certains sont considérés comme des adaptogènes, c'est-à-dire qu'ils aident l'organisme à mieux faire face au stress, à la fatigue et aux différentes agressions du quotidien.
+            </p>
+            <p>
+                Naturellement riches en prébiotiques, vitamines, minéraux et oligo-éléments comme le zinc ou le sélénium, ces champignons participent au bon fonctionnement du système immunitaire, soutiennent l'équilibre intestinal et contribuent à protéger les cellules contre le vieillissement.
+            </p>
+            <p>
+                Chaque variété possède des propriétés spécifiques. Le <strong>Reishi</strong> est souvent utilisé pour favoriser la détente, améliorer le sommeil et soutenir l'organisme grâce à ses effets antioxydants et anti-inflammatoires. L'<strong>Héricium</strong> est apprécié pour son action sur les fonctions cognitives, la mémoire et la santé digestive. Le <strong>Coriolus</strong> est étudié pour son soutien au système immunitaire, tandis que l'association <strong>Maitake et Coprinus</strong> est parfois recommandée dans le cadre de l'équilibre glycémique, de la gestion du poids et de la santé cardiovasculaire.
+            </p>
+
+            <div class="warning-banner" style="background: rgba(63, 110, 79, 0.08); border-color: rgba(63, 110, 79, 0.28); border-left-color: var(--main-green); color: var(--forest-800);">
+                <span class="warning-banner-icon" aria-hidden="true">ℹ️</span>
+                <span>
+                    Bien que prometteuse, la mycothérapie ne remplace pas un traitement médical. Il est recommandé de demander conseil à un professionnel de santé avant de débuter une supplémentation, notamment en cas de maladie ou de traitement en cours.
+                </span>
+            </div>
+        </div>
+
+        <!-- PRODUITS MICO.JS -->
+        <div id="mico-list"></div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../json/coeur.js"></script>
+    <script src="../json/mico.js"></script>
+    <script src="../script/main.js"></script>
+    <script>
+        if (typeof dataCoeur !== 'undefined') {
+            displayProducts(dataCoeur, 'product-list');
+        }
+        if (typeof dataMico !== 'undefined') {
+            displayProducts(dataMico, 'mico-list');
+        }
+    </script>
+</body>
+</html>

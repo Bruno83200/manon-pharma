@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huiles Essentielles — Les Conseils de Manon</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- IMAGE DE FOND CONSERVÉE (aroma_he.webp) -->
+    <div class="page-bg" style="background-image: url('../assets/images/aroma_he.webp');"></div>
+    <div class="page-bg-overlay"></div>
+
+    <div id="site-nav"></div>
+
+    <header class="page-hero">
+        <span class="hero-eyebrow">💧 Aromathérapie</span>
+        <h1>Les Huiles Essentielles</h1>
+        <p class="page-hero-sub">Les incontournables de la trousse familiale et leurs conseils d'utilisation sécurisés</p>
+
+        <div class="subcat-tabs" role="navigation" aria-label="Sous-catégories Aromathérapie">
+            <a href="aroma_he.html" class="subcat-tab active">💧 Huiles Essentielles</a>
+            <a href="aroma_hydro.html" class="subcat-tab">🌸 Hydrolats &amp; Eaux Florales</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="intro-card">
+            <p>
+                L’aromathérapie est une pratique thérapeutique qui utilise des huiles essentielles extraites de plantes
+                (fleurs, feuilles, écorces, etc.) pour promouvoir le bien-être physique, mental et émotionnel.
+                Ces huiles, riches en composés aromatiques, peuvent être inhalées, appliquées sur la peau ou parfois
+                ingérées (sous supervision professionnelle) pour soulager divers maux, comme le stress, les troubles
+                du sommeil, les douleurs ou les infections. Elle repose sur les propriétés pharmacologiques et
+                olfactives des huiles essentielles, souvent intégrée dans une approche holistique de la santé.
+            </p>
+            <div class="warning-banner">
+                <span class="warning-banner-icon" aria-hidden="true">⚠️</span>
+                <span>
+                    Attention méfiance : les huiles essentielles doivent être utilisées avec prudence et connaissance.
+                    Une formation ou des conseils d'experts sont fortement recommandés pour une utilisation sécurisée
+                    et efficace. Elles sont fortement déconseillées aux jeunes enfants et femmes enceintes.
+                </span>
+            </div>
+        </div>
+
+        <div id="catalog-toolbar"></div>
+        <div id="product-list"></div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../json/aroma_he.js"></script>
+    <script src="../script/main.js"></script>
+    <script>
+        if (typeof dataHE !== 'undefined') {
+            displayProducts(dataHE);
+        } else {
+            console.error("La variable dataHE n'est pas trouvée. Vérifiez le fichier aroma_he.js");
+        }
+    </script>
+</body>
+</html>

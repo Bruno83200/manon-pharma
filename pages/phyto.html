@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phytothérapie — Les Conseils de Manon</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- IMAGE DE FOND CONSERVÉE (phyto_page.webp) -->
+    <div class="page-bg" style="background-image: url('../assets/images/phyto_page.webp');"></div>
+    <div class="page-bg-overlay"></div>
+
+    <div id="site-nav"></div>
+
+    <header class="page-hero">
+        <span class="hero-eyebrow">🍵 Herboristerie &amp; Infusions</span>
+        <h1>La Phytothérapie</h1>
+        <p class="page-hero-sub">Tisanes de plantes médicinales BIO et extraits naturels pour accompagner votre équilibre</p>
+    </header>
+
+    <main class="container">
+        <div class="intro-card">
+            <p>
+                La phytothérapie est une méthode de soin qui utilise les propriétés des plantes médicinales pour favoriser la santé et soulager certains troubles. Elle se concentre notamment sur l’usage de tisanes, préparées en infusant des plantes (feuilles, fleurs ou racines) dans de l’eau chaude, permettant de libérer leurs principes actifs pour un effet doux et naturel.
+            </p>
+            <p>
+                Les gélules, quant à elles, contiennent des extraits de plantes en poudre ou concentrés, offrant une alternative pratique et précise pour une prise régulière. Ces deux formes, prisées pour leur accessibilité, sont utilisées pour soutenir le bien-être, mais doivent être employées avec précaution, idéalement sous les conseils d’un professionnel, pour assurer leur sécurité et efficacité.
+            </p>
+        </div>
+
+        <div id="catalog-toolbar"></div>
+        <div id="product-list"></div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../json/phyto.js"></script>
+    <script src="../script/main.js"></script>
+    <script>
+        if (typeof dataPhyto !== 'undefined') {
+            displayProducts(dataPhyto);
+        } else {
+            console.error("La variable dataPhyto n'est pas trouvée. Vérifiez le fichier phyto.js");
+        }
+    </script>
+</body>
+</html>

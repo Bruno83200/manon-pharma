@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aromathérapie — Les Conseils de Manon</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .aroma-portal {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 1240px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 18px clamp(16px, 4vw, 32px) 40px;
+        }
+
+        .aroma-split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(20px, 3vw, 32px);
+            flex: 1;
+            min-height: 470px;
+            margin-top: 8px;
+        }
+
+        .aroma-choice-card {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 2.5px solid rgba(255, 255, 255, 0.85);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: 440px;
+            padding: clamp(24px, 4vw, 42px);
+            color: var(--white);
+            transition: transform 0.45s var(--transition-smooth), box-shadow 0.45s var(--transition-smooth), border-color 0.35s ease;
+        }
+
+        .aroma-choice-bg {
+            position: absolute;
+            inset: 0;
+            background-position: center;
+            background-size: cover;
+            transition: transform 0.7s var(--transition-smooth);
+            z-index: 0;
+        }
+
+        .aroma-choice-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(12, 24, 17, 0.14) 15%, rgba(12, 24, 17, 0.88) 100%);
+            z-index: 1;
+        }
+
+        .aroma-choice-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold-300);
+        }
+
+        .aroma-choice-card:hover .aroma-choice-bg {
+            transform: scale(1.07);
+        }
+
+        .aroma-choice-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .aroma-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(211, 182, 131, 0.22);
+            border: 1px solid rgba(211, 182, 131, 0.55);
+            backdrop-filter: blur(8px);
+            color: var(--gold-300);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+            margin-bottom: 12px;
+        }
+
+        .aroma-choice-content h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 3.6vw, 2.8rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .aroma-choice-content p {
+            font-size: 0.98rem;
+            color: rgba(255, 255, 255, 0.88);
+            line-height: 1.6;
+            margin-bottom: 22px;
+            max-width: 460px;
+        }
+
+        .aroma-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 28px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--gold-300), var(--gold-500));
+            color: var(--forest-900);
+            font-weight: 700;
+            font-size: 0.86rem;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .aroma-choice-card:hover .aroma-cta {
+            background: var(--white);
+            transform: translateX(4px);
+        }
+
+        @media (max-width: 860px) {
+            .aroma-split-grid {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            .aroma-choice-card {
+                min-height: 330px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- IMAGE DE FOND AROMA CONSERVÉE -->
+    <div class="page-bg" style="background-image: url('../assets/images/aroma_he.webp');"></div>
+    <div class="page-bg-overlay"></div>
+
+    <div id="site-nav"></div>
+
+    <main class="aroma-portal">
+        <div class="page-hero" style="margin-top: 10px;">
+            <span class="hero-eyebrow">🌿 Univers Aromathérapie</span>
+            <h1>Choisissez votre approche</h1>
+            <p class="page-hero-sub">Des quintessences concentrées aux eaux florales délicates issues de la distillation</p>
+        </div>
+
+        <div class="aroma-split-grid">
+            <!-- CARTE 1 : HUILES ESSENTIELLES (huiles.webp conservée) -->
+            <a href="aroma_he.html" class="aroma-choice-card">
+                <div class="aroma-choice-bg" style="background-image: url('../assets/images/huiles.webp');"></div>
+                <div class="aroma-choice-content">
+                    <span class="aroma-badge">💧 Concentrés actifs</span>
+                    <h2>Huiles Essentielles</h2>
+                    <p>Extraits aromatiques puissants pour cibler les maux du quotidien : immunité, ORL, détente, digestion et récupération.</p>
+                    <span class="aroma-cta">Voir les 10 huiles essentielles →</span>
+                </div>
+            </a>
+
+            <!-- CARTE 2 : HYDROLATS (hydrolat.webp conservée) -->
+            <a href="aroma_hydro.html" class="aroma-choice-card">
+                <div class="aroma-choice-bg" style="background-image: url('../assets/images/hydrolat.webp');"></div>
+                <div class="aroma-choice-content">
+                    <span class="aroma-badge">🌸 Douceur &amp; Tolérance</span>
+                    <h2>Hydrolats &amp; Eaux Florales</h2>
+                    <p>L'aromathérapie tout en douceur, idéale pour les peaux sensibles, le soin des yeux, les jeunes enfants et le bien-être émotionnel.</p>
+                    <span class="aroma-cta">Voir les 10 hydrolats →</span>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../script/main.js"></script>
+</body>
+</html>

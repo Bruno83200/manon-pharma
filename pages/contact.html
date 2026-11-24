@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Les Conseils de Manon</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .contact-layout {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--glass-bg-strong);
+            backdrop-filter: blur(20px) saturate(140%);
+            -webkit-backdrop-filter: blur(20px) saturate(140%);
+            border: 1.5px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: clamp(24px, 4.5vw, 46px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-grid-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-field {
+            margin-bottom: 20px;
+        }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--forest-800);
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1.5px solid rgba(24, 34, 27, 0.16);
+            border-radius: 16px;
+            background: var(--white);
+            font-size: 1rem;
+            color: var(--ink-900);
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .form-field textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            border-color: var(--main-green);
+            box-shadow: 0 0 0 4px rgba(63, 110, 79, 0.14);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 17px 28px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--main-green) 0%, var(--forest-800) 100%);
+            color: var(--white);
+            font-size: 0.96rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 12px 28px rgba(31, 59, 43, 0.32);
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(31, 59, 43, 0.44);
+        }
+
+        .contact-reassurance {
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(24, 34, 27, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: var(--ink-500);
+        }
+
+        @media (max-width: 640px) {
+            .contact-grid-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- IMAGE DE FOND CONSERVÉE (champ.webp) -->
+    <div class="page-bg" style="background-image: url('../assets/images/champ.webp');"></div>
+    <div class="page-bg-overlay"></div>
+
+    <div id="site-nav"></div>
+
+    <header class="page-hero">
+        <span class="hero-eyebrow">✉️ Échange &amp; Accompagnement</span>
+        <h1>Contactez Manon</h1>
+        <p class="page-hero-sub">Une question sur une plante, une huile essentielle ou un besoin particulier ? Écrivez-moi.</p>
+    </header>
+
+    <main class="container">
+        <div class="contact-layout">
+            <div class="contact-card">
+                <form action="https://formspree.io/f/mykqkzpw" method="POST">
+                    <div class="contact-grid-row">
+                        <div class="form-field">
+                            <label for="name">Votre nom</label>
+                            <input type="text" name="name" id="name" placeholder="Ex : Camille Martin" required>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="email">Votre adresse email</label>
+                            <input type="email" name="_replyto" id="email" placeholder="Ex : camille@email.fr" required>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="subject">Sujet de votre demande</label>
+                        <input type="text" name="subject" id="subject" placeholder="Ex : Conseil sur un hydrolat ou une tisane" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="message">Votre message</label>
+                        <textarea name="message" id="message" rows="6" placeholder="Décrivez votre besoin ou votre question en quelques lignes..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Envoyer mon message →</button>
+                </form>
+
+                <div class="contact-reassurance">
+                    <span>🌿 Réponse bienveillante</span>
+                    <span>🔒 Données confidentielles</span>
+                    <span>💊 Conseils de préparatrice en pharmacie</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../script/main.js"></script>
+</body>
+</html>

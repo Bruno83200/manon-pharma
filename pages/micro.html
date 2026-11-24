@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Micronutrition — Les Conseils de Manon</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- IMAGE DE FOND CONSERVÉE (micronut.webp) -->
+    <div class="page-bg" style="background-image: url('../assets/images/micronut.webp');"></div>
+    <div class="page-bg-overlay"></div>
+
+    <div id="site-nav"></div>
+
+    <header class="page-hero">
+        <span class="hero-eyebrow">✨ Vitalité &amp; Équilibre</span>
+        <h1>Conseils en Micronutrition</h1>
+        <p class="page-hero-sub">Comprendre les besoins essentiels de vos cellules en vitamines, minéraux et acides gras</p>
+    </header>
+
+    <main class="container">
+        <div class="intro-card">
+            <p>
+                Découvrez les conseils en micro-nutrition que j'ai élaborés pour optimiser votre bien-être au quotidien. Grâce à une approche personnalisée, je vous donne quelques habitudes hygiéno-diététiques simples et efficaces : choix d’aliments riches en micronutriments, gestion des carences, et équilibre alimentaire adapté à vos besoins.
+            </p>
+            <p>
+                Que ce soit pour booster votre énergie, renforcer votre immunité ou améliorer votre santé globale, mes recommandations s’appuient sur une expertise professionnelle pour vous accompagner vers une vitalité optimale.
+            </p>
+        </div>
+
+        <div id="catalog-toolbar"></div>
+        <div id="product-list"></div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../json/micro.js"></script>
+    <script src="../script/main.js"></script>
+    <script>
+        if (typeof dataMicro !== 'undefined') {
+            displayProducts(dataMicro);
+        } else {
+            console.error("La variable dataMicro n'est pas trouvée. Vérifiez le fichier micro.js");
+        }
+    </script>
+</body>
+</html>

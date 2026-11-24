@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydrolats — Les Conseils de Manon</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- IMAGE DE FOND CONSERVÉE (aroma_he.webp) -->
+    <div class="page-bg" style="background-image: url('../assets/images/aroma_he.webp');"></div>
+    <div class="page-bg-overlay"></div>
+
+    <div id="site-nav"></div>
+
+    <header class="page-hero">
+        <span class="hero-eyebrow">🌸 Aromathérapie douce</span>
+        <h1>Les Hydrolats &amp; Eaux Florales</h1>
+        <p class="page-hero-sub">Des eaux aromatiques délicates et bienveillantes pour petits et grands</p>
+
+        <div class="subcat-tabs" role="navigation" aria-label="Sous-catégories Aromathérapie">
+            <a href="aroma_he.html" class="subcat-tab">💧 Huiles Essentielles</a>
+            <a href="aroma_hydro.html" class="subcat-tab active">🌸 Hydrolats &amp; Eaux Florales</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="intro-card">
+            <p>
+                En matière d’aromathérapie, il ne faut surtout pas oublier et négliger les hydrolats.
+                L'hydrolat est un des deux produits obtenus lors de la distillation à la vapeur d'eau. Durant celle-ci, les composés volatils de la plante sont entraînés par la vapeur d'eau jusqu'au condenseur. L'huile essentielle, qui est dans la grande majorité des cas plus légère que l'eau, surnage à sa surface dans « l'essencier ».
+            </p>
+            <p>
+                L'eau qu'elle recouvre est dite « eau florale » dans le cas de distillation des fleurs, « hydrolat » ou eau distillée aromatique pour les autres parties de la plante. On peut noter qu'il existe de rares cas où l'huile essentielle est plus lourde que l'eau (par ex. giroflier). Pour être de bonne qualité, les hydrolats doivent être obtenus lors de la première demi-heure de distillation. L'hydrolat est très faiblement concentré en composants aromatiques, entre 0,5% et 0,1%, et donc beaucoup moins actif et plus souple d'emploi que l'huile essentielle.
+            </p>
+        </div>
+
+        <div id="catalog-toolbar"></div>
+        <div id="product-list"></div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../json/aroma_hydro.js"></script>
+    <script src="../script/main.js"></script>
+    <script>
+        if (typeof dataHydro !== 'undefined') {
+            displayProducts(dataHydro);
+        } else {
+            console.error("La variable dataHydro n'est pas trouvée. Vérifiez le fichier aroma_hydro.js");
+        }
+    </script>
+</body>
+</html>

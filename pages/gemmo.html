@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemmothérapie — Les Conseils de Manon</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- IMAGE DE FOND CONSERVÉE (bourgeons.webp) -->
+    <div class="page-bg" style="background-image: url('../assets/images/bourgeons.webp');"></div>
+    <div class="page-bg-overlay"></div>
+
+    <div id="site-nav"></div>
+
+    <header class="page-hero">
+        <span class="hero-eyebrow">🌱 Thérapie des Bourgeons</span>
+        <h1>La Gemmothérapie</h1>
+        <p class="page-hero-sub">Toute l'énergie vitale des jeunes pousses et bourgeons d'arbres en macérats concentrés</p>
+    </header>
+
+    <main class="container">
+        <div class="intro-card">
+            <p>
+                La gemmothérapie est une branche de la phytothérapie qui utilise les bourgeons, jeunes pousses ou radicelles de plantes pour leurs propriétés thérapeutiques. Ces parties végétales, riches en substances actives (hormones, enzymes, vitamines, minéraux), sont généralement macérées dans un mélange d’eau, d’alcool et de glycérine pour obtenir des extraits concentrés.
+            </p>
+            <p>
+                La gemmothérapie repose sur le principe que les tissus embryonnaires des plantes contiennent une énergie vitale et des principes actifs uniques, bénéfiques pour la santé humaine. Elle est utilisée pour traiter divers troubles, comme les problèmes digestifs, le stress ou les douleurs articulaires, en stimulant les fonctions naturelles du corps.
+            </p>
+        </div>
+
+        <div id="catalog-toolbar"></div>
+        <div id="product-list"></div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../json/gemmo.js"></script>
+    <script src="../script/main.js"></script>
+    <script>
+        if (typeof dataGemmo !== 'undefined') {
+            displayProducts(dataGemmo);
+        } else {
+            console.error("La variable dataGemmo n'est pas trouvée. Vérifiez le fichier gemmo.js");
+        }
+    </script>
+</body>
+</html>

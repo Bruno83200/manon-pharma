@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conseils Vétérinaires — Les Conseils de Manon</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- IMAGE DE FOND CONSERVÉE (veto_fond.webp) -->
+    <div class="page-bg" style="background-image: url('../assets/images/veto_fond.webp');"></div>
+    <div class="page-bg-overlay"></div>
+
+    <div id="site-nav"></div>
+
+    <header class="page-hero">
+        <span class="hero-eyebrow">🐾 Santé Animale Naturelle</span>
+        <h1>Conseils Vétérinaires</h1>
+        <p class="page-hero-sub">Homéopathie, élixirs floraux et soins doux pour accompagner vos chiens et chats</p>
+    </header>
+
+    <main class="container">
+        <div class="intro-card">
+            <p>
+                Les propriétaires d'animaux de compagnie recherchent de plus en plus des traitements doux et naturels.
+                Qu'il s'agisse de phytothérapie, d'homéopathie ou d'aromathérapie, les plantes offrent des solutions
+                efficaces pour la prévention ou le traitement de certaines pathologies chez nos compagnons.
+            </p>
+            <p>
+                Certaines plantes possèdent des propriétés médicinales précieuses, mais la vigilance est de mise concernant
+                leur toxicité spécifique (notamment chez les chats).
+            </p>
+            <div class="warning-banner">
+                <span class="warning-banner-icon" aria-hidden="true">⚠️</span>
+                <span>
+                    Attention : La santé naturelle n'est pas une solution miracle et ne doit en aucun cas remplacer
+                    une consultation chez un vétérinaire et/ou un traitement médical prescrit. Soyez particulièrement
+                    prudents avec les huiles essentielles chez les chats.
+                </span>
+            </div>
+        </div>
+
+        <div id="catalog-toolbar"></div>
+        <div id="product-list"></div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../json/veto.js"></script>
+    <script src="../script/main.js"></script>
+    <script>
+        if (typeof dataVeto !== 'undefined') {
+            displayProducts(dataVeto);
+        } else {
+            console.error("La variable dataVeto n'est pas trouvée.");
+        }
+    </script>
+</body>
+</html>
